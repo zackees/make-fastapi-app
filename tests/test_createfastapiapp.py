@@ -46,6 +46,18 @@ class CreateAppTester(unittest.TestCase):
         # self.assertTrue(os.path.exists(os.path.join(outdir, "tests", "test_cli.py")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "tox.ini")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "run_dev.py")))
+        # Check that each *.py file does not have template_fastapi_project in it.
+        for root, _, files in os.walk(outdir):
+            for file in files:
+                if file.endswith(".py"):
+                    file_path = os.path.join(root, file)
+                    file_content = read_utf8(file_path)
+                    lines = file_content.splitlines()
+                    for line in lines:
+                        if "template_fastapi_project" in line:
+                            self.assertTrue(  # pylint: disable=redundant-unittest-assert
+                                False, f"Found template_fastapi_project in {file_path}: {line}"
+                            )
         os.chdir(outdir)
         subprocess.check_call("pip install -e .", shell=True)
         subprocess.check_call("pip install -r requirements.testing.txt", shell=True)

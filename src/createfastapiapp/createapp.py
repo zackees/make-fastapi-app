@@ -63,10 +63,10 @@ def write_lines(path: str, lines: list[str]) -> None:
 
 def replace_in_file(path: str, old: str, new: str) -> None:
     lines = read_lines(path)
-    new_lines = []
-    for line in lines:
-        new_lines.append(line.replace(old, new))
-    write_lines(path, new_lines)
+    for i, line in enumerate(lines):
+        if old in line:
+            lines[i] = line.replace(old, new)
+    write_lines(path, lines)
 
 
 def do_create_fastapi_app(
@@ -138,6 +138,10 @@ def do_create_fastapi_app(
             file = os.path.join(app_dir, filename)
             assert os.path.exists(file), f"File {file} not found."
             replace_in_file(file, "fastapi_template_project", app_name_underscore)
+        # TODO: template_fastapi_project -> fastapi_template_project
+        replace_in_file(
+            os.path.join(app_dir, "app.py"), "template_fastapi_project", app_name_underscore
+        )
         ########
         # Transform run_dev.py with new imports
         replace_in_file(
@@ -147,6 +151,9 @@ def do_create_fastapi_app(
         # Transform run_dev.py with new imports
         replace_in_file(
             os.path.join(tmpdir, "entry_point.sh"), "fastapi_template_project", app_name_underscore
+        )
+        replace_in_file(
+            os.path.join(tmpdir, "README.md"), "fastapi_template_project", app_name_underscore
         )
         ########
         # Transform src python test files with new imports
