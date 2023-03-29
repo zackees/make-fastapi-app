@@ -213,6 +213,10 @@ def create_python_app() -> None:
     app_keywords = input("Python app keywords: ")
     app_author = input("Python app author: ")
     github_url = input("GitHub URL: ")
+    if github_url.endswith("/"):
+        github_url = github_url[:-1]
+    if github_url.endswith(".git"):
+        github_url = github_url[:-4]
     version = input("Version [1.0.0]: ")
     if not version:
         version = "1.0.0"
