@@ -7,6 +7,7 @@
 
 import os
 import shutil
+import sys
 import tempfile
 from typing import Optional
 
@@ -193,13 +194,16 @@ def do_create_fastapi_app(
                 shutil.copytree(f, os.path.join(cwd, os.path.basename(f)))
             else:
                 shutil.copy(f, cwd)
-        # Add +x to all *.sh files
-        for root, _, files in os.walk(tmpdir):
+        # Add +x to all *.sh files in the root directory.
+        for root, _, files in os.walk(cwd):
             for f in files:
                 if f.endswith(".sh"):
                     path = os.path.join(root, f)
                     # git +x permission
                     os.system(f'git update-index --chmod=+x "{path}"')
+                    if sys.platform != "win32":
+                        # local +x permission
+                        os.system(f"chmod +x {path}")
 
 
 def create_python_app() -> None:
@@ -228,6 +232,16 @@ def create_python_app() -> None:
         version=version,
         github_url=github_url,
     )
+    python_str = "python" if sys.platform == "win32" else "pytho3n"
+    print(
+        "\nDone! Now execute the following commands:\n"
+        f"  {python_str} make_venv.py\n"
+        ". ./install_dev.sh"
+    )
+    print("If you are currently in VSCode then close the Program and reopen it.")
+    print("If running from the command line, make sure you enter into the virtual"
+          " environment with `. ./activate.sh`. Note that VSCode will automatically"
+          " do this for you.")
 
 
 if __name__ == "__main__":
