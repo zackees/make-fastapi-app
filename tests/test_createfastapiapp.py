@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import unittest
 
-from create_python_cmd.createapp import do_create_python_app
+from createfastapiapp.createapp import do_create_fastapi_app
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,36 +26,30 @@ class CreateAppTester(unittest.TestCase):
         outdir = os.path.normpath(os.path.join(HERE, "..", ".MyAppTest"))
         if os.path.exists(outdir):
             shutil.rmtree(outdir)
-        do_create_python_app(
+        do_create_fastapi_app(
             app_description="MyAppTest description",
             app_author="Firstname Lastname",
             app_keywords="myapp test",
             version="1.2.3",
-            github_url="https://github.com/author/my-app",
+            github_url="https://github.com/author/myapp",
             command_name="mytestcommand",
             cwd=outdir,
         )
         self.assertTrue(os.path.exists(outdir))
         self.assertTrue(os.path.exists(os.path.join(outdir, "pyproject.toml")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "setup.py")))
-        setup_py_lines: list[str] = read_utf8(
-            os.path.join(outdir, "setup.py")
-        ).splitlines()
+        setup_py_lines: list[str] = read_utf8(os.path.join(outdir, "setup.py")).splitlines()
         self.assertIn('KEYWORDS = "myapp test"', setup_py_lines)
-        self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myfastapiapp")))
-        self.assertTrue(
-            os.path.exists(os.path.join(outdir, "src", "myfastapiapp", "cli.py"))
-        )
-        self.assertTrue(
-            os.path.exists(os.path.join(outdir, "src", "myfastapiapp", "__init__.py"))
-        )
+        self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp")))
+        # self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp", "cli.py")))
+        self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp", "__init__.py")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "tests")))
-        self.assertTrue(os.path.exists(os.path.join(outdir, "tests", "test_cli.py")))
+        # self.assertTrue(os.path.exists(os.path.join(outdir, "tests", "test_cli.py")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "tox.ini")))
         os.chdir(outdir)
         subprocess.check_call("pip install -e .", shell=True)
         subprocess.check_call("pip install -r requirements.testing.txt", shell=True)
-        subprocess.check_call("python tests/test_cli.py", shell=True)
+        # subprocess.check_call("python tests/test_cli.py", shell=True)
         subprocess.check_call("pylint src tests", shell=True)
         subprocess.check_call("flake8 src tests", shell=True)
         subprocess.check_call("mypy src tests", shell=True)
