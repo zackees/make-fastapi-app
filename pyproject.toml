@@ -33,4 +33,4 @@ profile = "black"
 ignore_missing_imports = true
 
 [project.scripts]
-createfastapiapp = "createfastapiapp.cli:main"
+createfastapiapp = "createfastapiapp.createapp:create_python_app"

@@ -32,7 +32,6 @@ class CreateAppTester(unittest.TestCase):
             app_keywords="myapp test",
             version="1.2.3",
             github_url="https://github.com/author/myapp",
-            command_name="mytestcommand",
             cwd=outdir,
         )
         self.assertTrue(os.path.exists(outdir))
@@ -46,6 +45,7 @@ class CreateAppTester(unittest.TestCase):
         self.assertTrue(os.path.exists(os.path.join(outdir, "tests")))
         # self.assertTrue(os.path.exists(os.path.join(outdir, "tests", "test_cli.py")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "tox.ini")))
+        self.assertTrue(os.path.exists(os.path.join(outdir, "run_dev.py")))
         os.chdir(outdir)
         subprocess.check_call("pip install -e .", shell=True)
         subprocess.check_call("pip install -r requirements.testing.txt", shell=True)

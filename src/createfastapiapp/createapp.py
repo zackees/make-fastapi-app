@@ -75,7 +75,6 @@ def do_create_fastapi_app(
     app_keywords: str,  # Example "keyword1, keyword2, keyword3"
     version: str,
     github_url: str,
-    command_name: Optional[str] = None,
     cwd: Optional[str] = None,
 ) -> None:
     # Create the app directory
@@ -111,14 +110,6 @@ def do_create_fastapi_app(
                 pyproject_lines[i] = f'version = "{version}"'
             if line.startswith("authors ="):
                 pyproject_lines[i] = f'authors = ["{app_author}"]'
-            if command_name is None:
-                if line.startswith("[project.scripts]"):
-                    pyproject_lines[i] = ""
-                if line.startswith("test_cmd ="):
-                    pyproject_lines[i] = ""
-            else:
-                if line.startswith("test_cmd ="):
-                    pyproject_lines[i] = f'{command_name} = "{app_name_underscore}.cli:main"'
         ########
         # Transform pyproject file with the new information
         pyproject_lines = remove_double_blank_lines(pyproject_lines)
@@ -147,6 +138,16 @@ def do_create_fastapi_app(
             file = os.path.join(app_dir, filename)
             assert os.path.exists(file), f"File {file} not found."
             replace_in_file(file, "fastapi_template_project", app_name_underscore)
+        ########
+        # Transform run_dev.py with new imports
+        replace_in_file(
+            os.path.join(tmpdir, "run_dev.py"), "fastapi_template_project", app_name_underscore
+        )
+        ########
+        # Transform run_dev.py with new imports
+        replace_in_file(
+            os.path.join(tmpdir, "entry_point.sh"), "fastapi_template_project", app_name_underscore
+        )
         ########
         # Transform src python test files with new imports
         test_dir = os.path.join(tmpdir, "tests")
@@ -181,18 +182,12 @@ def create_python_app() -> None:
     if not version:
         version = "1.0.0"
     check_semantic_version(version)
-    add_command = input("Add a command? [y/N]: ").lower() == "y"
-    command_name = None
-    if add_command:
-        command_name = input("Command name: ")
-        check_name(command_name)
     do_create_fastapi_app(
         app_description=app_description,
         app_author=app_author,
         app_keywords=app_keywords,
         version=version,
         github_url=github_url,
-        command_name=command_name,
     )
 
 
