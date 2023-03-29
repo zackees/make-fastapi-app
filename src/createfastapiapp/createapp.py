@@ -142,6 +142,9 @@ def do_create_fastapi_app(
         replace_in_file(
             os.path.join(app_dir, "app.py"), "template_fastapi_project", app_name_underscore
         )
+        replace_in_file(
+            os.path.join(app_dir, "app.py"), "FastAPI Template Project", app_name_underscore
+        )
         ########
         # Transform run_dev.py with new imports
         replace_in_file(
@@ -154,6 +157,11 @@ def do_create_fastapi_app(
         )
         replace_in_file(
             os.path.join(tmpdir, "README.md"), "fastapi_template_project", app_name_underscore
+        )
+        replace_in_file(
+            os.path.join(tmpdir, "README.md"),
+            "Example FastAPI Project with Docker, ready for Render.com / DigitalOcean",
+            f"{app_name_underscore} with Docker, ready for Render.com / DigitalOcean",
         )
         ########
         # Transform src python test files with new imports
