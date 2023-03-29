@@ -6,10 +6,9 @@
 
 
 import os
-import tempfile
 import shutil
+import tempfile
 from typing import Optional
-
 
 TEMPLATE_PROJECT_URL = "https://github.com/zackees/template-fastapi-project"
 DIR_MATCH = "fastapi_template_project"
@@ -18,7 +17,9 @@ DIR_MATCH = "fastapi_template_project"
 def check_name(app_name: str) -> None:
     """Check the name of the application."""
     if not app_name.isidentifier():
-        raise ValueError("The name of the application is not a valid Python identifier.")
+        raise ValueError(
+            "The name of the application is not a valid Python identifier."
+        )
 
 
 def check_semantic_version(version: str) -> None:
@@ -26,7 +27,9 @@ def check_semantic_version(version: str) -> None:
     version_list = version.split(".")
     for v in version_list:
         if not v.isnumeric():
-            raise ValueError("The version of the application is not a valid semantic version.")
+            raise ValueError(
+                "The version of the application is not a valid semantic version."
+            )
 
 
 def remove_double_blank_lines(lines: list) -> list:
@@ -140,23 +143,33 @@ def do_create_fastapi_app(
             replace_in_file(file, "fastapi_template_project", app_name_underscore)
         # TODO: template_fastapi_project -> fastapi_template_project
         replace_in_file(
-            os.path.join(app_dir, "app.py"), "template_fastapi_project", app_name_underscore
+            os.path.join(app_dir, "app.py"),
+            "template_fastapi_project",
+            app_name_underscore,
         )
         replace_in_file(
-            os.path.join(app_dir, "app.py"), "FastAPI Template Project", app_name_underscore
+            os.path.join(app_dir, "app.py"),
+            "FastAPI Template Project",
+            app_name_underscore,
         )
         ########
         # Transform run_dev.py with new imports
         replace_in_file(
-            os.path.join(tmpdir, "run_dev.py"), "fastapi_template_project", app_name_underscore
+            os.path.join(tmpdir, "run_dev.py"),
+            "fastapi_template_project",
+            app_name_underscore,
         )
         ########
         # Transform run_dev.py with new imports
         replace_in_file(
-            os.path.join(tmpdir, "entry_point.sh"), "fastapi_template_project", app_name_underscore
+            os.path.join(tmpdir, "entry_point.sh"),
+            "fastapi_template_project",
+            app_name_underscore,
         )
         replace_in_file(
-            os.path.join(tmpdir, "README.md"), "fastapi_template_project", app_name_underscore
+            os.path.join(tmpdir, "README.md"),
+            "fastapi_template_project",
+            app_name_underscore,
         )
         replace_in_file(
             os.path.join(tmpdir, "README.md"),
@@ -180,6 +193,13 @@ def do_create_fastapi_app(
                 shutil.copytree(f, os.path.join(cwd, os.path.basename(f)))
             else:
                 shutil.copy(f, cwd)
+        # Add +x to all *.sh files
+        for root, _, files in os.walk(tmpdir):
+            for f in files:
+                if f.endswith(".sh"):
+                    path = os.path.join(root, f)
+                    # git +x permission
+                    os.system(f'git update-index --chmod=+x "{path}"')
 
 
 def create_python_app() -> None:

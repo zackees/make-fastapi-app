@@ -17,3 +17,8 @@ This environment requires you to use `git-bash`.
 # Linting
 
 Run `./lint.sh` to find linting errors using `pylint`, `flake8` and `mypy`.
+
+# Versions
+
+  * 1.0.1: Adds +x to all shell scripts
+  * 1.0.0: Initial commit

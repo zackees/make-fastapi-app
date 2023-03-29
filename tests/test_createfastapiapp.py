@@ -37,11 +37,15 @@ class CreateAppTester(unittest.TestCase):
         self.assertTrue(os.path.exists(outdir))
         self.assertTrue(os.path.exists(os.path.join(outdir, "pyproject.toml")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "setup.py")))
-        setup_py_lines: list[str] = read_utf8(os.path.join(outdir, "setup.py")).splitlines()
+        setup_py_lines: list[str] = read_utf8(
+            os.path.join(outdir, "setup.py")
+        ).splitlines()
         self.assertIn('KEYWORDS = "myapp test"', setup_py_lines)
         self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp")))
         # self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp", "cli.py")))
-        self.assertTrue(os.path.exists(os.path.join(outdir, "src", "myapp", "__init__.py")))
+        self.assertTrue(
+            os.path.exists(os.path.join(outdir, "src", "myapp", "__init__.py"))
+        )
         self.assertTrue(os.path.exists(os.path.join(outdir, "tests")))
         # self.assertTrue(os.path.exists(os.path.join(outdir, "tests", "test_cli.py")))
         self.assertTrue(os.path.exists(os.path.join(outdir, "tox.ini")))
@@ -56,7 +60,8 @@ class CreateAppTester(unittest.TestCase):
                     for line in lines:
                         if "template_fastapi_project" in line:
                             self.assertTrue(  # pylint: disable=redundant-unittest-assert
-                                False, f"Found template_fastapi_project in {file_path}: {line}"
+                                False,
+                                f"Found template_fastapi_project in {file_path}: {line}",
                             )
         os.chdir(outdir)
         subprocess.check_call("pip install -e .", shell=True)
