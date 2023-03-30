@@ -20,6 +20,7 @@ Run `./lint.sh` to find linting errors using `pylint`, `flake8` and `mypy`.
 
 # Versions
 
+  * 1.0.4: Allows empty github url
   * 1.0.3: Adds post install instructions to the command line.
   * 1.0.2: Remove trailing `.git` and `/` for githurl repo input
   * 1.0.1: Adds +x to all shell scripts
