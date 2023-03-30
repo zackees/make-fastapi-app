@@ -74,6 +74,7 @@ def replace_in_file(path: str, old: str, new: str) -> None:
 
 
 def do_create_fastapi_app(
+    app_name: str,
     app_description: str,
     app_author: str,
     app_keywords: str,  # Example "keyword1, keyword2, keyword3"
@@ -85,7 +86,7 @@ def do_create_fastapi_app(
     # get app name from the github url
     cwd = cwd or os.getcwd()
     os.makedirs(cwd, exist_ok=True)
-    app_name = github_url.split("/")[-1]
+    app_name = app_name or github_url.split("/")[-1]
     app_name_underscore = app_name.replace("-", "_")
     with tempfile.TemporaryDirectory() as tmpdir:
         # download https://github.com/zackees/template-python-cmd
@@ -226,6 +227,7 @@ def create_python_app() -> None:
         version = "1.0.0"
     check_semantic_version(version)
     do_create_fastapi_app(
+        app_name=app_name,
         app_description=app_description,
         app_author=app_author,
         app_keywords=app_keywords,
@@ -239,9 +241,11 @@ def create_python_app() -> None:
         ". ./install_dev.sh"
     )
     print("If you are currently in VSCode then close the Program and reopen it.")
-    print("If running from the command line, make sure you enter into the virtual"
-          " environment with `. ./activate.sh`. Note that VSCode will automatically"
-          " do this for you.")
+    print(
+        "If running from the command line, make sure you enter into the virtual"
+        " environment with `. ./activate.sh`. Note that VSCode will automatically"
+        " do this for you."
+    )
 
 
 if __name__ == "__main__":
