@@ -201,6 +201,7 @@ def do_create_fastapi_app(
                 if f.endswith(".sh"):
                     path = os.path.join(root, f)
                     # git +x permission
+                    os.system(f'git add "{path}"')
                     os.system(f'git update-index --chmod=+x "{path}"')
                     if sys.platform != "win32":
                         # local +x permission
