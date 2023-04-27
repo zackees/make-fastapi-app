@@ -11,7 +11,7 @@ FastAPI app creation template
 
 # Instructions
 
-First off, make sure you have python installed and this package `pip install make-fastapi-app`
+First off, make sure you have python installed and this package `pip install make-fastapi-app`, this will create a new global command `createfastapiapp` that you will use in the steps below.
 
   1. Create a new python github repo, let's call it "myapp"
   2. Clone that "myapp" repo to your local computer
