@@ -8,7 +8,22 @@ FastAPI app creation template
 [![Ubuntu_Tests](../../actions/workflows/push_ubuntu.yml/badge.svg)](../../actions/workflows/push_ubuntu.yml)
 [![Win_Tests](../../actions/workflows/push_win.yml/badge.svg)](../../actions/workflows/push_win.yml)
 
-To develop software, run `. ./activate.sh`
+
+# Instructions
+
+First off, make sure you have python installed and this package `pip install make-fastapi-app`
+
+  1. Create a new python github repo, let's call it "myapp"
+  2. Clone that "myapp" repo to your local computer
+  3. `cd` into "myapp`
+  4. Run `createfastapiapp` at the project root.
+  5. Now `git commit` the files into the repo.
+  
+Now you should have a fully formed app that is ready to be used at Render.com or DigitalOcean, which will use the Dockerfile install. Everything should be automatic with this option.
+
+## Running locally
+
+You can either run the app locally. See the run scripts at the project root. You'll need to install the project globally with `pip install -e .` or else use a virtual environment with `python make_venv.py` and then using `. ./activate.sh` and then `pip install -e .` and then running the `run_dev.py` which should launch everything. Also there is a VSCode build tool that will do this automatically. It will be something like `Terminal` -> `Run Build Tools` -> `Run Local`
 
 # Windows
 
