@@ -17,6 +17,7 @@ First off, make sure you have python installed and this package `pip install mak
   2. Clone that "myapp" repo to your local computer
   3. `cd` into "myapp`
   4. Run `make-fastapi-app` at the project root.
+    a. Follow the instructions
   5. Now `git commit` the files into the repo.
   
 Now you should have a fully formed app that is ready to be used at Render.com or DigitalOcean, which will use the Dockerfile install. Everything should be automatic with this option.
