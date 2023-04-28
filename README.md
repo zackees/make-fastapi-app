@@ -1,4 +1,4 @@
-# createfastapiapp
+# make-fastapi-app
 
 FastAPI app creation template
 
