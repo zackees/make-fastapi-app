@@ -11,12 +11,12 @@ FastAPI app creation template
 
 # Instructions
 
-First off, make sure you have python installed and this package `pip install make-fastapi-app`, this will create a new global command `createfastapiapp` that you will use in the steps below.
+First off, make sure you have python installed and this package `pip install make-fastapi-app`, this will create a new global command `make-fastapi-app` that you will use in the steps below.
 
   1. Create a new python github repo, let's call it "myapp"
   2. Clone that "myapp" repo to your local computer
   3. `cd` into "myapp`
-  4. Run `createfastapiapp` at the project root.
+  4. Run `make-fastapi-app` at the project root.
   5. Now `git commit` the files into the repo.
   
 Now you should have a fully formed app that is ready to be used at Render.com or DigitalOcean, which will use the Dockerfile install. Everything should be automatic with this option.
