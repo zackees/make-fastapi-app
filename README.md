@@ -1,5 +1,9 @@
 # make-fastapi-app
 
+```bash
+pip install make-fastapi-app
+```
+
 FastAPI app creation template
 
 [![Linting](../../actions/workflows/lint.yml/badge.svg)](../../actions/workflows/lint.yml)
