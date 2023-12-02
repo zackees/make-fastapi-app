@@ -6,7 +6,7 @@ pip install make-fastapi-app
 
 Running
 ```bash
-make-fastapi-app"
+make-fastapi-app
 ```
 
 FastAPI app creation template
