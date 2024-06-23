@@ -235,7 +235,7 @@ def create_python_app() -> None:
         version=version,
         github_url=github_url,
     )
-    python_str = "python" if sys.platform == "win32" else "pytho3n"
+    python_str = "python" if sys.platform == "win32" else "python3"
     print(
         "\nDone! Now execute the following commands:\n"
         f"  {python_str} make_venv.py\n"
