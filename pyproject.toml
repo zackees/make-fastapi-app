@@ -10,7 +10,11 @@ keywords = ["template-python-cmd"]
 license = { text = "BSD 3-Clause License" }
 classifiers = ["Programming Language :: Python :: 3"]
 dependencies = [
-
+    "pytest",
+]
+readme = "README.md"
+maintainers = [
+    {name = "Zachary Vorhies"}
 ]
 # Change this with the version number bump.
 # Also make the change in zcmds/version.py
@@ -31,6 +35,17 @@ profile = "black"
 
 [tool.mypy]
 ignore_missing_imports = true
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort", 
+    "flake8",
+    "mypy",
+    "pylint",
+    "pytest",
+    "tox"
+]
 
 [project.scripts]
 make-fastapi-app = "createfastapiapp.createapp:create_python_app"
