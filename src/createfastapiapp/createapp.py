@@ -18,9 +18,7 @@ DIR_MATCH = "fastapi_template_project"
 def check_name(app_name: str) -> None:
     """Check the name of the application."""
     if not app_name.isidentifier():
-        raise ValueError(
-            "The name of the application is not a valid Python identifier."
-        )
+        raise ValueError("The name of the application is not a valid Python identifier.")
 
 
 def check_semantic_version(version: str) -> None:
@@ -28,9 +26,7 @@ def check_semantic_version(version: str) -> None:
     version_list = version.split(".")
     for v in version_list:
         if not v.isnumeric():
-            raise ValueError(
-                "The version of the application is not a valid semantic version."
-            )
+            raise ValueError("The version of the application is not a valid semantic version.")
 
 
 def remove_double_blank_lines(lines: list) -> list:
@@ -195,17 +191,18 @@ def do_create_fastapi_app(
                 shutil.copytree(f, os.path.join(cwd, os.path.basename(f)))
             else:
                 shutil.copy(f, cwd)
-        # Add +x to all *.sh files in the root directory.
-        for root, _, files in os.walk(cwd):
-            for f in files:
-                if f.endswith(".sh"):
-                    path = os.path.join(root, f)
-                    # git +x permission
-                    os.system(f'git add "{path}"')
-                    os.system(f'git update-index --chmod=+x "{path}"')
-                    if sys.platform != "win32":
-                        # local +x permission
-                        os.system(f"chmod +x {path}")
+        if os.path.exists(os.path.join(cwd, ".git")):
+            # Add +x to all *.sh files in the root directory.
+            for root, _, files in os.walk(cwd):
+                for f in files:
+                    if f.endswith(".sh"):
+                        path = os.path.join(root, f)
+                        # git +x permission
+                        os.system(f'git add "{path}"')
+                        os.system(f'git update-index --chmod=+x "{path}"')
+                        if sys.platform != "win32":
+                            # local +x permission
+                            os.system(f"chmod +x {path}")
 
 
 def create_python_app() -> None:
