@@ -44,11 +44,10 @@ class CreateAppTester(unittest.TestCase):
         )
         self.assertTrue(os.path.exists(OUTDIR))
         self.assertTrue(os.path.exists(os.path.join(OUTDIR, "pyproject.toml")))
-        self.assertTrue(os.path.exists(os.path.join(OUTDIR, "setup.py")))
         setup_py_lines: list[str] = read_utf8(
-            os.path.join(OUTDIR, "setup.py")
+            os.path.join(OUTDIR, "pyproject.toml")
         ).splitlines()
-        self.assertIn('KEYWORDS = "myapp test"', setup_py_lines)
+        self.assertIn('keywords = ["myapp test"]', setup_py_lines)
         self.assertTrue(os.path.exists(os.path.join(OUTDIR, "src", "myapp")))
         # self.assertTrue(os.path.exists(os.path.join(OUTDIR, "src", "myapp", "cli.py")))
         self.assertTrue(
@@ -95,11 +94,10 @@ class CreateAppTester(unittest.TestCase):
         )
         self.assertTrue(os.path.exists(OUTDIR2))
         self.assertTrue(os.path.exists(os.path.join(OUTDIR2, "pyproject.toml")))
-        self.assertTrue(os.path.exists(os.path.join(OUTDIR2, "setup.py")))
         setup_py_lines: list[str] = read_utf8(
-            os.path.join(OUTDIR2, "setup.py")
+            os.path.join(OUTDIR2, "pyproject.toml")
         ).splitlines()
-        self.assertIn('KEYWORDS = "myapp test"', setup_py_lines)
+        self.assertIn('keywords = ["myapp test"]', setup_py_lines)
         self.assertTrue(os.path.exists(os.path.join(OUTDIR2, "src", "myapp")))
         # self.assertTrue(os.path.exists(os.path.join(OUTDIR2, "src", "myapp", "cli.py")))
         self.assertTrue(

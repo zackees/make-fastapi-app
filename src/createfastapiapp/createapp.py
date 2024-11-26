@@ -121,7 +121,7 @@ def do_create_fastapi_app(
             pyproject_file.write("\n".join(pyproject_lines))
         ########
         # Transform setup.py with the new information
-        setup = os.path.join(tmpdir, "setup.py")
+        setup = os.path.join(tmpdir, "pyproject.toml")
         with open(setup, encoding="utf-8", mode="r") as setup_file:
             setup_lines = setup_file.read().splitlines()
         for i, line in enumerate(setup_lines):
@@ -130,8 +130,8 @@ def do_create_fastapi_app(
             # maintainer
             if line.startswith("maintainer="):
                 setup_lines[i] = f'maintainer="{app_author}"'
-            if line.startswith("KEYWORDS ="):
-                setup_lines[i] = f'KEYWORDS = "{app_keywords}"'
+            if line.startswith("keywords ="):
+                setup_lines[i] = f'keywords = ["{app_keywords}"]'
         with open(setup, encoding="utf-8", mode="w") as setup_file:
             setup_file.write("\n".join(setup_lines))
         ########

@@ -19,14 +19,13 @@ jobs:
       name: Configure pip caching
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/pyproject.toml') }}
         restore-keys: |
           ${{ runner.os }}-pip-
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install .
-        python -m pip install -r requirements.testing.txt
+        ./install
+      shell: bash
     - name: Run Linting
       run: |
         flake8 src
