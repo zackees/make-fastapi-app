@@ -45,7 +45,8 @@ This environment requires you to use `git-bash`.
 Run `./lint.sh` to find linting errors using `pylint`, `flake8` and `mypy`.
 
 # Versions
-
+ 
+  * 1.0.7: Upgrade setup.py -> pyproject.toml
   * 1.0.6: Command broke due to new python. I fixed it.
   * 1.0.5: Fixes adding +x to sh files
   * 1.0.4: Allows empty github url
